@@ -1,0 +1,5 @@
+@function get-vw($size-in-px, $screen-size: 1800) {
+  $size: calc($size-in-px / 1px);
+
+  @return calc(#{$size} * 100vw / #{$screen-size})
+}

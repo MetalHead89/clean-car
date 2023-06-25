@@ -1,0 +1,9 @@
+@import 'normalize.css';
+@import './fonts.scss';
+
+html, body, #__nuxt {
+  height: 100%;
+  font-family: 'Century Gothic';
+  font-size: $base-text-size;
+  color: $primary-text-color;
+}
