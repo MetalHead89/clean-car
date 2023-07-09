@@ -36,9 +36,11 @@ type weatherResponseType = {
 }
 
 import { useMapStore } from '@/stores/map'
+import { NuxtApp } from 'nuxt/app';
 
 const mapStore = useMapStore()
-const config = useRuntimeConfig()
+// const config = useRuntimeConfig()
+const { $api } = useNuxtApp()
 const weather: Ref<currentWeatherType | null> = ref(null)
 
 onMounted(() => {
@@ -46,14 +48,16 @@ onMounted(() => {
     return
   }
 
-  const query = {
-    key: config.public.weatherApiKey,
-    q: mapStore.coords.join(',')
-  }
-  $fetch<weatherResponseType>('http://api.weatherapi.com/v1/current.json', { query })
-    .then(({ current })  => {
-      weather.value = current
-    })
+
+  $api.weather.getYesterdayWeather(mapStore.coords)
+  // const query = {
+  //   key: config.public.weatherApiKey,
+  //   q: mapStore.coords.join(',')
+  // }
+  // $fetch<weatherResponseType>('http://api.weatherapi.com/v1/current.json', { query })
+  //   .then(({ current })  => {
+  //     weather.value = current
+  //   })
 })
 </script>
 

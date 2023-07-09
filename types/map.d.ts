@@ -1,0 +1,1 @@
+type coordsType = [number, number]
