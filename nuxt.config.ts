@@ -2,6 +2,16 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  modules: [
+    '@pinia/nuxt'
+  ],
+
+  runtimeConfig: {
+    public: {
+      yandexApiKey: process.env.YANDEX_API_KEY
+    }
+  },
+
   css: ['@/assets/styles/main.scss'],
 
   vite: {

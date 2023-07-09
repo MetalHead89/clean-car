@@ -1,6 +1,9 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "overrides": {
+    "vue": "latest"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -15,7 +18,12 @@
     "typescript": "latest"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "@types/js-cookie": "^3.0.3",
+    "js-cookie": "^3.0.5",
     "normalize.css": "^8.0.1",
-    "sass": "^1.63.6"
+    "pinia": "^2.1.4",
+    "sass": "^1.63.6",
+    "vue-yandex-maps": "^0.12.7"
   }
 }
