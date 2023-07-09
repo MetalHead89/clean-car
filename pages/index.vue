@@ -10,14 +10,51 @@
       Мое местоположение
     </button> -->
 
-    <ui-no-location />
+    <ui-no-location v-if="!mapStore.coords" />
+
+    <div v-else-if="weather">
+      <div>{{ `Температура: ${weather.temp_c}` }}</div>
+      <div>{{ weather.condition.text }}</div>
+    </div>
+
+    <div v-else>
+      Нет данных
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+type currentWeatherType = {
+  temp_c: number,
+  condition: {
+      text: string
+  }
+}
+
+type weatherResponseType = {
+  current: currentWeatherType
+}
+
 import { useMapStore } from '@/stores/map'
 
 const mapStore = useMapStore()
+const config = useRuntimeConfig()
+const weather: Ref<currentWeatherType | null> = ref(null)
+
+onMounted(() => {
+  if (!mapStore.coords) {
+    return
+  }
+
+  const query = {
+    key: config.public.weatherApiKey,
+    q: mapStore.coords.join(',')
+  }
+  $fetch<weatherResponseType>('http://api.weatherapi.com/v1/current.json', { query })
+    .then(({ current })  => {
+      weather.value = current
+    })
+})
 </script>
 
 <style lang="scss" scoped>

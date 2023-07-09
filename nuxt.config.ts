@@ -8,7 +8,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      yandexApiKey: process.env.YANDEX_API_KEY
+      yandexApiKey: process.env.YANDEX_API_KEY,
+      weatherApiKey: process.env.WEATHER_API_KEY
     }
   },
 
