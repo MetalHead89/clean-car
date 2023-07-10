@@ -1,6 +1,6 @@
 import weather from '@/api/weather'
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin(_ => {
   const { $fetchService } = useNuxtApp()
   const config = useRuntimeConfig()
 

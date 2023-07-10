@@ -1,7 +1,7 @@
 import { coordsType, useMapStore } from '@/stores/map'
 import { CookieRef } from 'nuxt/app'
 
-export default defineNuxtPlugin(async nuxtApp => {
+export default defineNuxtPlugin(async _ => {
   const { $constants } = useNuxtApp()
   const mapStore = useMapStore()
 

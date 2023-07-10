@@ -1,6 +1,6 @@
 import constants from '@/config/constants'
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin(_ => {
   return {
     provide: {
       constants

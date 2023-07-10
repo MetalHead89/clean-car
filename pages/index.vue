@@ -6,9 +6,6 @@
     >
       {{ mapStore.address || 'Мое местоположение' }}
     </Nuxt-Link>
-    <!-- <button class="location-button">
-      Мое местоположение
-    </button> -->
 
     <ui-no-location v-if="!mapStore.coords" />
 
@@ -36,10 +33,8 @@ type weatherResponseType = {
 }
 
 import { useMapStore } from '@/stores/map'
-import { NuxtApp } from 'nuxt/app';
 
 const mapStore = useMapStore()
-// const config = useRuntimeConfig()
 const { $api } = useNuxtApp()
 const weather: Ref<currentWeatherType | null> = ref(null)
 
@@ -48,16 +43,7 @@ onMounted(() => {
     return
   }
 
-
   $api.weather.getYesterdayWeather(mapStore.coords)
-  // const query = {
-  //   key: config.public.weatherApiKey,
-  //   q: mapStore.coords.join(',')
-  // }
-  // $fetch<weatherResponseType>('http://api.weatherapi.com/v1/current.json', { query })
-  //   .then(({ current })  => {
-  //     weather.value = current
-  //   })
 })
 </script>
 
@@ -91,32 +77,10 @@ $location-button-top: 20px;
     }
   }
 
-
-  // .location-button {
-  //   position: absolute;
-  //   left: $location-button-left;
-  //   top: $location-button-top;
-  //   background: none;
-  //   border: none;
-  //   font-size: 14px;
-  //   color: $primary-text-color;
-  //   padding: 0;
-  //   margin: 0;
-  //   cursor: pointer;
-  //   transition: color $base-transition;
-
-  //   &:hover {
-  //     color: $hovered-text-color;
-  //   }
-  // }
-
   @media screen and (min-width: $size-sm) {
     .location-link {
       font-size: 1rem;
     }
-    // .location-button {
-    //   font-size: 1rem;
-    // }
   }
 
   @media screen and (min-width: $size-xl) {
@@ -125,11 +89,6 @@ $location-button-top: 20px;
       left: get-vw($location-button-left);
       font-size: get-vw(16px);
     }
-    // .location-button {
-    //   top: get-vw($location-button-top);
-    //   left: get-vw($location-button-left);
-    //   font-size: get-vw(16px);
-    // }
   }
 }
 </style>

@@ -1,8 +1,4 @@
-// export interface IFetchService {
-//   get: (path: string, query?: object) => Promise<unknown>
-// }
-
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin(_ => {
   const get = (path: string, query?: object) => {
     return $fetch(path, { query });
   }
