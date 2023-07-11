@@ -9,9 +9,8 @@
 
     <ui-no-location v-if="!mapStore.coords" />
 
-    <div v-else-if="weather">
-      <div>{{ `Температура: ${weather.temp_c}` }}</div>
-      <div>{{ weather.condition.text }}</div>
+    <div v-else-if="weatherForecast">
+      {{ weatherForecast }}
     </div>
 
     <div v-else>
@@ -21,30 +20,30 @@
 </template>
 
 <script setup lang="ts">
-type currentWeatherType = {
-  temp_c: number,
-  condition: {
-      text: string
-  }
-}
-
-type weatherResponseType = {
-  current: currentWeatherType
-}
 
 import { useMapStore } from '@/stores/map'
 
 const mapStore = useMapStore()
 const { $api } = useNuxtApp()
-const weather: Ref<currentWeatherType | null> = ref(null)
+const weatherForecast: Ref<string | null> = ref(null)
 
 onMounted(() => {
+  loadWeather()
+})
+
+const loadWeather = () => {
   if (!mapStore.coords) {
     return
   }
 
-  $api.weather.getYesterdayWeather(mapStore.coords)
-})
+  Promise.all([
+    $api.weather.getYesterdayWeather(mapStore.coords),
+    $api.weather.getForecastWeather(mapStore.coords)
+  ])
+  .then(([yesterday, forecast]) => {
+    weatherForecast.value = getCarWashForecast({ yesterday, forecast })
+  })
+}
 </script>
 
 <style lang="scss" scoped>
