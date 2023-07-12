@@ -23,6 +23,8 @@ const CODES = {
 export default ({ yesterday, forecast}: FunctionPropsType) => {
   const weatherStatuses = getWeatherStatuses(yesterday, forecast)
 
+  console.dir(weatherStatuses)
+
   if (isIdealWeather(weatherStatuses)) {
     return 'Ideal'
   } else if (isGoodWeather(weatherStatuses)) {

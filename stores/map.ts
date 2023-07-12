@@ -8,9 +8,12 @@ export type locationType = {
 }
 
 export const useMapStore = defineStore('map', () => {
+  const cookieExpires = new Date(new Date().setDate(new Date().getDate() + 30))
   const { $constants } = useNuxtApp()
-  const coordsCookie = useCookie($constants.COORDS_COOKIE_KEY) as CookieRef<coordsType | undefined>
-  const addressCookie = useCookie($constants.ADDRESS_COOKIE_KEY)
+  const coordsCookie =
+    useCookie($constants.COORDS_COOKIE_KEY, { expires: cookieExpires }) as CookieRef<coordsType | undefined>
+  const addressCookie =
+    useCookie($constants.ADDRESS_COOKIE_KEY, { expires: cookieExpires })
 
   const coords: Ref<coordsType> = ref(null)
   const address = ref('')
