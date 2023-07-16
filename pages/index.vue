@@ -9,11 +9,17 @@
 
     <ui-no-location v-if="!mapStore.coords" />
 
-    <div v-else-if="weatherForecast">
+    <div
+      v-else-if="weatherForecast"
+      class="weather-forecast"
+    >
       {{ weatherForecast }}
     </div>
 
-    <div v-else>
+    <div
+      v-else
+      class="no-data"
+    >
       Нет данных
     </div>
   </div>
