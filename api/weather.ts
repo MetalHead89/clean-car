@@ -6,7 +6,7 @@ const getUrl = (path: string) => {
 
 export default (fetchService: IFetchService, apiKey: string) => {
   return {
-    getYesterdayWeather: (coords: coordsType) => {
+    getYesterdayWeather: (coords: coordsType)  => {
       const date = new Date()
       date.setDate(date.getDate() - 1)
 
@@ -16,7 +16,7 @@ export default (fetchService: IFetchService, apiKey: string) => {
         dt: date.toISOString().split('T')[0]
       }
 
-      return fetchService.get(getUrl('/history.json'), params )
+      return fetchService.get(getUrl('/history.json'), params ) as Promise<IYesterdayWeather>
     },
 
     getForecastWeather: (coords: coordsType) => {
@@ -28,7 +28,7 @@ export default (fetchService: IFetchService, apiKey: string) => {
         days: FORECAST_DAYS_COUNT
       }
 
-      return fetchService.get(getUrl('/forecast.json'), params )
+      return fetchService.get(getUrl('/forecast.json'), params ) as Promise<IForecastWeather>
     }
   }
 }
