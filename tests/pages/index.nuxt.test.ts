@@ -3,7 +3,6 @@ import { mountSuspended } from 'nuxt-vitest/utils'
 import { createTestingPinia } from '@pinia/testing'
 
 import Index from '@/pages/index.vue'
-// import { createPinia, mapStores, setActivePinia } from 'pinia'
 import { useMapStore } from '@/stores/map'
 
 describe('Mount index page', () => {
@@ -15,14 +14,19 @@ describe('Mount index page', () => {
 
 describe('Show elements', async () => {
   let page = await mountSuspended(Index)
+  let mapStore = useMapStore()
 
   beforeEach(async () => {
+    mapStore = useMapStore()
+
     page = await mountSuspended(Index, {
       global: {
         plugins: [
           createTestingPinia({
-            stubActions: false,
-            createSpy: vitest.fn
+            createSpy: vitest.fn,
+            initialState: {
+              coords: null
+            }
           })
         ]
       }
@@ -33,26 +37,21 @@ describe('Show elements', async () => {
     expect(page.html()).contains('class="no-location"')
   })
 
-  // test('Weather forecast section is showed', async () => {
-  //   page = await mountSuspended(Index, {
-  //     loadWeather: () => {
-  //       weatherForecast.value = 'data'
-  //     }
-  //   })
-
-  //   // page = await mountSuspended(Index, {
-  //   //   loadWeather: () => {
-  //   //     weatherForecast = 'data'
-  //   //   }
-  //   // })
-
-  //   expect(page.html()).contains('class="no-location"')
-  // })
-
   test('Weather no-data section is showed', async () => {
-    const mapStore = useMapStore()
     mapStore.coords = [20, 20]
     await nextTick()
     expect(page.html()).contains('class="no-data"')
+  })
+
+  test('No location section is not showed', async () => {
+    mapStore.coords = [20, 20]
+    await nextTick()
+    expect(page.html()).not.contains('class="no-location"')
+  })
+
+  test('Weather no-data section is not showed', async () => {
+    mapStore.coords = null
+    await nextTick()
+    expect(page.html()).not.contains('class="no-data"')
   })
 })
