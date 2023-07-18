@@ -55,3 +55,20 @@ describe('Show elements', async () => {
     expect(page.html()).not.contains('class="no-data"')
   })
 })
+
+describe('Address link', () => {
+  test('Address link text is "Мое местоположение"', async () => {
+    const page = await mountSuspended(Index)
+    expect(page.html()).contains('Мое местоположение')
+  })
+
+  test('Address link text is "Город Канск"', async () => {
+    const page = await mountSuspended(Index)
+    const mapStore = useMapStore()
+
+    mapStore.address = 'Город Канск'
+    await nextTick()
+
+    expect(page.html()).contains('Город Канск')
+  })
+})
