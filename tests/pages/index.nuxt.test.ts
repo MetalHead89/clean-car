@@ -37,10 +37,10 @@ describe('Show elements', async () => {
     expect(page.html()).contains('class="no-location"')
   })
 
-  test('Weather no-data section is showed', async () => {
+  test('Weather-forecast section is showed', async () => {
     mapStore.coords = [20, 20]
     await nextTick()
-    expect(page.html()).contains('class="no-data"')
+    expect(page.html()).contains('Нет данных')
   })
 
   test('No location section is not showed', async () => {
@@ -49,7 +49,7 @@ describe('Show elements', async () => {
     expect(page.html()).not.contains('class="no-location"')
   })
 
-  test('Weather no-data section is not showed', async () => {
+  test('Weather-forecast section is not showed', async () => {
     mapStore.coords = null
     await nextTick()
     expect(page.html()).not.contains('class="no-data"')

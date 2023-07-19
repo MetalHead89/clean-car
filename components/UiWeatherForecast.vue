@@ -1,43 +1,45 @@
 <template>
-  <div class="main-page">
-    <Nuxt-Link
-      :to="{ name: 'map' }"
-      class="location-link"
-    >
-      {{ mapStore.address || 'Мое местоположение' }}
-    </Nuxt-Link>
-
-    <UiNoLocation v-if="!mapStore.coords" />
-    <UiWeatherForecast v-else />
+  <div class="weather-forecast">
+    {{ weatherForecast }}
   </div>
 </template>
 
 <script setup lang="ts">
-
 import { useMapStore } from '@/stores/map'
 
+const NO_DATA = 'Нет данных'
+
 const mapStore = useMapStore()
-// const { $api } = useNuxtApp()
-// const weatherForecast: Ref<string | null> = ref('Нет данных')
+const { $api } = useNuxtApp()
+const weatherForecast = ref(NO_DATA)
 
-// onMounted(() => {
-//   loadWeather()
-// })
+const coords = computed(() => {
+  return mapStore.coords
+})
 
-// const loadWeather = () => {
-//   if (!mapStore.coords) {
-//     return
-//   }
+onMounted(() => {
+  getForecast()
+})
 
-//   Promise.all([
-//     $api.weather.getYesterdayWeather(mapStore.coords),
-//     $api.weather.getForecastWeather(mapStore.coords)
-//   ])
-//   .then(([yesterday, forecast]) => {
-//     weatherForecast.value = getCarWashForecast({ yesterday, forecast }) || 'Нет данных'
-//   })
-//   .catch(() => { weatherForecast.value = 'Нет данных'} )
-// }
+watch(coords, () => {
+  getForecast()
+})
+
+const getForecast = () => {
+  if (!coords.value) {
+    weatherForecast.value = NO_DATA
+    return
+  }
+
+  Promise.all([
+    $api.weather.getYesterdayWeather(coords.value),
+    $api.weather.getForecastWeather(coords.value)
+  ])
+  .then(async ([yesterday, forecast]) => {
+    weatherForecast.value = getCarWashForecast({ yesterday, forecast }) || NO_DATA
+  })
+  .catch(() => { weatherForecast.value = NO_DATA } )
+}
 </script>
 
 <style lang="scss" scoped>
