@@ -17,27 +17,6 @@
 import { useMapStore } from '@/stores/map'
 
 const mapStore = useMapStore()
-// const { $api } = useNuxtApp()
-// const weatherForecast: Ref<string | null> = ref('Нет данных')
-
-// onMounted(() => {
-//   loadWeather()
-// })
-
-// const loadWeather = () => {
-//   if (!mapStore.coords) {
-//     return
-//   }
-
-//   Promise.all([
-//     $api.weather.getYesterdayWeather(mapStore.coords),
-//     $api.weather.getForecastWeather(mapStore.coords)
-//   ])
-//   .then(([yesterday, forecast]) => {
-//     weatherForecast.value = getCarWashForecast({ yesterday, forecast }) || 'Нет данных'
-//   })
-//   .catch(() => { weatherForecast.value = 'Нет данных'} )
-// }
 </script>
 
 <style lang="scss" scoped>
