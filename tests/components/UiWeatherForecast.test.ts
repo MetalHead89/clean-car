@@ -1,9 +1,7 @@
 import { describe, test, expect, vitest, vi } from 'vitest'
 import { mountSuspended } from 'nuxt-vitest/utils'
-import { createTestingPinia } from '@pinia/testing'
 
 import UiWeatherForecast from '@/components/UiWeatherForecast.vue'
-import { useMapStore } from '@/stores/map'
 
 describe('UiWeatherForecast component', () => {
   test('UiWeatherForecast is mounted', () => {
