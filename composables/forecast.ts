@@ -1,7 +1,9 @@
 import { useMapStore } from '@/stores/map'
+import { useWeather } from '@/composables/weather'
 
 export function useForecast() {
-  const { $api } = useNuxtApp()
+  const { getWeather } = useWeather()
+
   const mapStore = useMapStore()
   const coords = computed(() => {
     return mapStore.coords
@@ -24,14 +26,11 @@ export function useForecast() {
       return
     }
 
-    Promise.all([
-      $api.weather.getYesterdayWeather(coords.value),
-      $api.weather.getForecastWeather(coords.value)
-    ])
-    .then(async ([yesterday, forecast]) => {
-      weatherForecast.value = getCarWashForecast({ yesterday, forecast }) || NO_DATA
-    })
-    .catch(() => { weatherForecast.value = NO_DATA } )
+    getWeather()
+      .then(async ([yesterday, forecast]) => {
+        weatherForecast.value = getCarWashForecast({ yesterday, forecast }) || NO_DATA
+      })
+      .catch(() => { weatherForecast.value = NO_DATA } )
   }
 
   return { weatherForecast }

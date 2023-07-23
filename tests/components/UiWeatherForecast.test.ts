@@ -4,8 +4,6 @@ import { mountSuspended } from 'nuxt-vitest/utils'
 import UiWeatherForecast from '@/components/UiWeatherForecast.vue'
 import { useForecast } from '@/composables/forecast'
 
-// Refactored UiWeatherForecast tests
-
 vi.mock('@/composables/forecast', () => {
   return {
     useForecast: vi.fn(() => ({
