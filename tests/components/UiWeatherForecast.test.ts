@@ -1,8 +1,10 @@
-import { describe, test, expect, vi } from 'vitest'
+import { afterEach, beforeEach, describe, test, expect, vi } from 'vitest'
 import { mountSuspended } from 'nuxt-vitest/utils'
 
 import UiWeatherForecast from '@/components/UiWeatherForecast.vue'
 import { useForecast } from '@/composables/forecast'
+
+// Refactored UiWeatherForecast tests
 
 vi.mock('@/composables/forecast', () => {
   return {
@@ -12,16 +14,23 @@ vi.mock('@/composables/forecast', () => {
   }
 })
 
-describe('UiWeatherForecast component', () => {
+describe('UiWeatherForecast component', async () => {
+  let component = await mountSuspended(UiWeatherForecast)
+
+  beforeEach(async () => {
+    component = await mountSuspended(UiWeatherForecast)
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
   test('UiWeatherForecast is mounted', () => {
-    const component = mountSuspended(UiWeatherForecast)
     expect(component).toBeTruthy()
   })
 
   test('Forecast text should be "Нет данных"', async () => {
-    const component = await mountSuspended(UiWeatherForecast)
     const forecast = component.find('.weather-forecast')
-
     expect(forecast.text()).toBe('Нет данных')
   })
 
