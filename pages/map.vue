@@ -17,9 +17,15 @@ onMounted(() => {
 const init = () => {
   map = new ymaps.Map("map", {
       center: [55.76, 37.64],
-      zoom: 7
+      zoom: 7,
+      controls: [
+      'zoomControl',
+      'searchControl',
+      'geolocationControl'
+      ]
   })
 
+  map.addControl(new ymaps.ScaleLine())
   map.events.add('click', handleMapClick)
 
   if (mapStore.coords) {
