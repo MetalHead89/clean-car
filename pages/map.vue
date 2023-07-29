@@ -1,5 +1,14 @@
 <template>
-  <div id="map" />
+  <div class="map-page">
+    <button
+      class="close"
+      type="button"
+      @click="handleCloseClick"
+    >
+      <i class="icon-cross" />
+    </button>
+    <div id="map" />
+  </div>
 </template>
 
 <script setup>
@@ -88,11 +97,41 @@ const handleAddressGeocode = (res) => {
       balloonContent: address
     })
 }
+
+const router = useRouter()
+
+const handleCloseClick = () => {
+  router.push({ name: 'index' })
+}
 </script>
 
 <style lang="scss" scoped>
+.map-page {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
 #map {
   width: 100%;
   height: 100%;
+}
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $white;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.15),0 2px 5px -3px rgba(0,0,0,.15);
+    cursor: pointer;
+  }
 }
 </style>

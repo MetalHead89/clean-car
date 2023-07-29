@@ -5,7 +5,7 @@ import map from '@/pages/map.vue'
 
 describe('Back button', async () => {
   let page = await mountSuspended(map)
-  let button = page.find('.back-button')
+  let button = page.find('.close')
   let mockRoute = {
     name: 'map'
   }
@@ -22,7 +22,7 @@ describe('Back button', async () => {
         }
       }
     })
-    button = page.find('.back-button')
+    button = page.find('.close')
   })
 
   afterAll(() => {
