@@ -34,7 +34,6 @@ const init = () => {
       ]
   })
 
-  map.addControl(new ymaps.ScaleLine())
   map.events.add('click', handleMapClick)
 
   if (mapStore.coords) {
